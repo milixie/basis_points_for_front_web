@@ -12,7 +12,7 @@ window.onload = function(){
 								+ '年龄：' + obj.age + '<br/>'
 								+ '性别：' + obj.sex + '<br/>'
 								+ '国籍：' + obj.from;
-	document.write('<hr/>' + output);
+	document.getElementById('obj-wrap').innerHTML += '<hr/>' + output;
 	var object = [{
 		name: 'Tom',
 		id: 2232,
@@ -38,7 +38,7 @@ window.onload = function(){
 								+ '年龄：' + object[i].age + '<br/>'
 								+ '性别：' + object[i].sex + '<br/>'
 								+ '国籍：' + object[i].from;
-		document.write('<hr/>' + temp);
+		document.getElementById('obj-wrap').innerHTML += '<hr/>' + temp;
 	}
 
 	var object2 = [{
@@ -77,7 +77,7 @@ window.onload = function(){
 						+ '性别：' + obj.sex + '<br/>'
 						+ '国籍：' + obj.from + '<br/>'
 						+ '全名：' + obj.fullname();
-		document.write('<hr/>' + t);
+		document.getElementById('obj-wrap').innerHTML += '<hr/>' + t;
 	}
 	object2.forEach(writeEle);
 
