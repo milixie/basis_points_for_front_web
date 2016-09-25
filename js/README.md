@@ -148,6 +148,113 @@ console.log(Color.filter, Pig.filter);
 ```
 
 
+# 闭包
+理解全局变量和局部变量
+函数里面套函数，里面的函数可以调用外面函数的所有变量，但是外面函数不可以调用里面的局部变量，可以使用return的方法将函数内部的值返回
+
+*闭包的作用：1.可以读取函数内部的变量，2.让这些变量的值始终保持在内存中*
+```language
+function f5 () {
+	var y = 8;
+	addValue = function(){
+		y++;
+	}
+	function f6(){
+		console.log(y);
+	}
+	return f6;
+}
+
+var res = f5();
+res();  //8
+addValue();
+res();  //9
+
+```
+
+注意点：
+1.闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页性能问题，在IE中可能会导致内存泄漏，解决方法就是在退出函数之前，将不使用的局部变量全部删除
+2.闭包会在父函数外部，改变父函数内部变量的值，在使用的时候不要随便去改变内部变量的值
+
+**闭包的坑**
+```language
+for (var i = 0; i < 5; i ++ ) {
+	setTimeout(function(){
+		console.log(i);
+	}, 5);
+}
+```
+这样输的结果为5个5
+解决方法：
+```language
+for(var i = 0; i < 5; i ++) {
+	(function(index){
+		setTimeout(function(){
+			console.log(index)
+		},5)
+	})(i);
+}
+```
+输出的结果是0,1,2,3,4
+
+### this
+- 有对象就指向调用对象
+- 没调用对象就指向全局对象
+- 用new构造就指向新对象
+- 通过apply或者call或者bind来改变this的所指
+1.有对象
+```language
+var obj = {
+	value: 100
+}
+obj.getValue = function(){
+	console.log(this.value); //100
+	console.log(this);  //obj本身
+	return this.value;
+}
+
+console.log(obj.getValue());  //100
+```
+2.没有对象
+```language
+var obj = {
+	value : 100
+}
+obj.getValue = function(){
+	var f = function(){
+		console.log(this.value); //undefined
+		console.log(this);  //全局
+	}
+	f();
+	return this.value;
+}
+console.log(obj.getValue());  //100
+```
+3.构造函数中的this: 指向新对象
+```language
+function Fun(name,value){
+	this.name = name;
+	this.value = value;
+}
+var f = new Fun('mili',24);
+console.log(f());
+```
+4.this：apply，call，bind绑定：指向绑定的对象
+```
+var obj3 = {
+	value4: 5
+}
+var foo = function(){
+	console.log(this,this.value4);
+}
+foo(); //全局this, undefined
+foo.apply(obj3);   //{value4: 5} 5
+foo.call(obj3);   //{value4: 5} 5
+var newFoo = foo.bind(obj3);
+newFoo();  //{value4:5} 5
+```
+
+
 
 
 
