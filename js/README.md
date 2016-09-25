@@ -254,6 +254,56 @@ var newFoo = foo.bind(obj3);
 newFoo();  //{value4:5} 5
 ```
 
+经典面试题：作用域与闭包
+1使用this指向
+```
+function onMyLoad() {
+	var clos = document.getElementById('closure-wrap');
+	var arr = clos.children;
+	for (var i = 0; i < arr.length; i ++ ){
+		arr[i].index = i;
+		arr[i].onclick = function(){
+			alert(this.index);
+		}
+	}
+}
+onMyLoad()
+```
+
+2:使用函数闭包
+```
+function onMyLoad() {
+	var clos = document.getElementById('closure-wrap');
+	var arr = clos.children;
+	for (var i = 0; i < arr.length; i ++ ){
+		(function(index){
+			arr[index].onclick = function(){
+				alert(index);
+			}
+	})(i);
+	}
+}
+onMyLoad()
+```
+
+// 3.使用匿名函数
+```
+function onMyLoad() {
+	var clos = document.getElementById('closure-wrap');
+	var arr = clos.children;
+	for (var i = 0; i < arr.length; i ++ ){
+		arr[i].onclick = (function(index){
+			return function(){
+				alert(index);
+			}
+		})(i);
+	}
+}
+onMyLoad()
+```
+
+更多解决方法：
+[https://segmentfault.com/a/1190000003818163](http://segmentfault.com/a/1190000003818163)
 
 
 
