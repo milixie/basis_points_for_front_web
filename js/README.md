@@ -305,14 +305,114 @@ onMyLoad()
 更多解决方法：
 [https://segmentfault.com/a/1190000003818163](http://segmentfault.com/a/1190000003818163)
 
+# OOP，面向对象编程
+OOP方法论：
+继承，封装，多态，抽象
 
+# 原型链
+### 继承：基于原型的继承
+![http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/1.png](http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/1.png)
 
+![http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/2.png](http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/2.png)
 
+```language
+function Person(name, age, eyes){
+	this.name = name;
+	this.age = age;
+	this.eyes = eyes;
+}
 
+Person.prototype.arm_num = 2;
+Person.prototype.leg_num = 2;
 
+Person.prototype.walk = function(){
+	console.log(this.name + ' is walking...');
+}
 
+Person.prototype.say = function(){
+	console.log(this.name + ' is saying hi to everyone ');
+}
 
+Person.prototype.hi = function(){
+	console.log(this.name + ' is saying hi to everyone and his/her age is ' + this.age);
+}
 
+function Student(name, age, eyes, grade){
+	this.grade = grade;
+	// Person.bind(this, name, age);
+	Person.call(this, name, age, eyes);
+	//继承Person中定义的一些对象值
+}
+
+Student.prototype = Object.create(Person.prototype);
+//如果直接使用Student.prototype = Person.prototype的话，会直接修改掉Person，所以需要使用Object.create()
+Student.prototype.constructor = Student;
+
+Student.prototype.hi = function(){
+	console.log(this.name + ' is saying hi to everyone and his/her age is ' + this.age + ', and he/her is in ' + this.grade + '. His eyes are ' + this.eyes);
+}
+// 这里的hi函数会覆盖掉Person中的hi函数
+
+Student.prototype.learn = function(subject){
+	console.log(this.name + ' is saying hi to everyone and his/her age is ' + this.age + ', and he/her is in ' + this.grade + ' and he/her is learning ' + subject);
+}
+
+var st1 = new Student('Tom', 16, 'black', '286 classroom');
+st1.say = function(){
+	console.log(this.name + ' is saying new class with her/his firends');
+}
+st1.eyes = 'blue';
+st1.hi();
+st1.walk();
+st1.say();
+st1.learn('English');
+```
+![http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/3.png](http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/3.png)
+
+bosn的原型是Student.prototype
+
+改变prototype
+
+![http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/4.png](http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/4.png)
+
+Student.prototype.x = 1;  //x的值被修改或者是新增了x的属性值，起到了效果
+Student.prototype = {y : 2}  //直接修改prototype属性的话是没有任何效果的，因为bosn已经指向了原先的Student
+
+内置构造器的prototype
+![http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/5.png](http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/5.png)
+```language
+Object.prototype.x = 1;
+//相当于给终端的Object增加了一个x属性值
+//遍历的时候会遍历出来
+//使用defineProperty去间接设置，使得对象属性不可枚举，不可配置，遍历的时候不会遍历出来
+```
+
+创建对象-new/原型链
+![http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/6.png](http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/6.png)
+```language
+typeof obj.toString  //是查找的Object.prototype
+'z' in obj;  //true 'z'在obj的本身对象或者是原型上，所以必然返回的是true
+obj.hasOwnProperty('z');  //false  判断'z'是否是在obj本身的对象上，使用的就是hasOwnProperty()
+```
+#### 实现继承的方式
+```
+1.Student.prototype = Person.prototype;
+2.Student.prototype = new Person()
+3.Student.prototype = Object.create(Person.prototype)
+if (!Object.create) {
+	Object.create = function(proto){
+		function F(){}
+		F.prototype = proto;
+		return new F;
+	}
+}
+
+```
+#### instanceof
+```
+obj instanceof fun   //判断fun是否是obj的原型链上的原型
+```
+![http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/7.png](http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/7.png)
 
 
 
