@@ -312,8 +312,12 @@ OOP方法论：
 # 原型链
 ### 继承：基于原型的继承
 ![http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/1.png](http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/1.png)
+原图地址：<a href="http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/1.png">http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/1.png</a>
+
 
 ![http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/2.png](http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/2.png)
+原图地址：<a href="http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/2.png">http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/2.png</a>
+
 
 ```language
 function Person(name, age, eyes){
@@ -368,18 +372,24 @@ st1.say();
 st1.learn('English');
 ```
 ![http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/3.png](http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/3.png)
+原图地址：<a href="http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/3.png">http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/3.png</a>
+
 
 bosn的原型是Student.prototype
 
 改变prototype
 
 ![http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/4.png](http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/4.png)
+原图地址：<a href="http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/4.png">http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/4.png</a>
+
 
 Student.prototype.x = 1;  //x的值被修改或者是新增了x的属性值，起到了效果
 Student.prototype = {y : 2}  //直接修改prototype属性的话是没有任何效果的，因为bosn已经指向了原先的Student
 
 内置构造器的prototype
 ![http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/5.png](http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/5.png)
+原图地址：<a href="http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/5.png">http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/5.png</a>
+
 ```language
 Object.prototype.x = 1;
 //相当于给终端的Object增加了一个x属性值
@@ -389,6 +399,8 @@ Object.prototype.x = 1;
 
 创建对象-new/原型链
 ![http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/6.png](http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/6.png)
+原图地址：<a href="http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/6.png">http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/6.png</a>
+
 ```language
 typeof obj.toString  //是查找的Object.prototype
 'z' in obj;  //true 'z'在obj的本身对象或者是原型上，所以必然返回的是true
@@ -413,6 +425,8 @@ if (!Object.create) {
 obj instanceof fun   //判断fun是否是obj的原型链上的原型
 ```
 ![http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/7.png](http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/7.png)
+原图地址：<a href="http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/7.png">http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/7.png</a>
+
 
 
 
