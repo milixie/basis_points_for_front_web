@@ -39,6 +39,7 @@ cars[2] = "BMW";
 `var cars = new Array("Volvo", "Audi", "BWM");`
 
 **5种原始数据类型是：Number/string/boolean/null/undefined**
+
 **一种object对象类型：Function Array Date**
 
 
@@ -52,7 +53,8 @@ var cars = new Array;
 var p = new Object;
 ```
 
-测试数据类型
+### 测试数据类型
+
 1.typeof  适合基本类型以及function检测，遇到null失效
 ```
 typeof xxx
@@ -89,12 +91,16 @@ i,j,m,n   //变量
 2.初始化表达式
 `[1,2]   //equal  new Array(1,2)`
 `{x: 1, y:2}  //equal  obj = new Object();  obj.x = 1;  obj.y = 2`
+
 3.函数表达式
 `var f = function(){};  (function(){})()`
+
 4.属性访问表达式
 `obj.x   //访问对象属性`
+
 5.调用表达式
 `f()   //调用`
+
 6.对象创建表达式
 `new F(1,2);  new Object;`
 
