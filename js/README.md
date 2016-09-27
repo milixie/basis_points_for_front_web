@@ -1,3 +1,8 @@
+# 本节知识点：
+
+[TOC]
+
+
 # 构造函数
 ## 构造函数的继承
 1.使用`apply(this, arguments)`
@@ -185,6 +190,7 @@ for (var i = 0; i < 5; i ++ ) {
 }
 ```
 这样输的结果为5个5
+
 解决方法：
 ```language
 for(var i = 0; i < 5; i ++) {
@@ -195,6 +201,7 @@ for(var i = 0; i < 5; i ++) {
 	})(i);
 }
 ```
+
 输出的结果是0,1,2,3,4
 
 ### this
@@ -202,6 +209,7 @@ for(var i = 0; i < 5; i ++) {
 - 没调用对象就指向全局对象
 - 用new构造就指向新对象
 - 通过apply或者call或者bind来改变this的所指
+
 1.有对象
 ```language
 var obj = {
@@ -231,14 +239,16 @@ obj.getValue = function(){
 console.log(obj.getValue());  //100
 ```
 3.构造函数中的this: 指向新对象
+
 ```language
 function Fun(name,value){
 	this.name = name;
 	this.value = value;
 }
 var f = new Fun('mili',24);
-console.log(f());
+console.log(f.name,f.value);  //mili,24
 ```
+
 4.this：apply，call，bind绑定：指向绑定的对象
 ```
 var obj3 = {
@@ -255,13 +265,25 @@ newFoo();  //{value4:5} 5
 ```
 
 经典面试题：作用域与闭包
+
+```language
+for (var i = 0; i < 5; i ++ ) {
+	setTimeout(function(){
+		console.log(i);
+	}, 5);
+}
+```
+这样输的结果为5个5
+
+解决方法：
+
 1使用this指向
 ```
 function onMyLoad() {
 	var clos = document.getElementById('closure-wrap');
 	var arr = clos.children;
 	for (var i = 0; i < arr.length; i ++ ){
-		arr[i].index = i;
+		arr[i].index = i;  //映射当前的index
 		arr[i].onclick = function(){
 			alert(this.index);
 		}
@@ -306,7 +328,7 @@ onMyLoad()
 [https://segmentfault.com/a/1190000003818163](http://segmentfault.com/a/1190000003818163)
 
 # OOP，面向对象编程
-OOP方法论：
+### OOP方法论：
 继承，封装，多态，抽象
 
 # 原型链
@@ -318,6 +340,7 @@ OOP方法论：
 ![http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/2.png](http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/2.png)
 原图地址：<a href="http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/2.png">http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/2.png</a>
 
+实例：
 
 ```language
 function Person(name, age, eyes){
@@ -384,6 +407,7 @@ bosn的原型是Student.prototype
 
 
 Student.prototype.x = 1;  //x的值被修改或者是新增了x的属性值，起到了效果
+
 Student.prototype = {y : 2}  //直接修改prototype属性的话是没有任何效果的，因为bosn已经指向了原先的Student
 
 内置构造器的prototype
@@ -410,7 +434,9 @@ obj.hasOwnProperty('z');  //false  判断'z'是否是在obj本身的对象上，
 ```
 1.Student.prototype = Person.prototype;
 2.Student.prototype = new Person()
-3.Student.prototype = Object.create(Person.prototype)
+3.推荐使用：
+
+Student.prototype = Object.create(Person.prototype)
 if (!Object.create) {
 	Object.create = function(proto){
 		function F(){}
@@ -425,6 +451,7 @@ if (!Object.create) {
 obj instanceof fun   //判断fun是否是obj的原型链上的原型
 ```
 ![http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/7.png](http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/7.png)
+
 原图地址：<a href="http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/7.png">http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/7.png</a>
 
 
