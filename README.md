@@ -680,7 +680,7 @@ function(){
 /\d\d\d/.test('ade');  //false
 new RegExg('boson').test('hello,boson')  //true
 ```
-正则基础：
+## 正则基础：
 
 | column | column | column  |
 |--------|--------|---------|
@@ -693,7 +693,7 @@ new RegExg('boson').test('hello,boson')  //true
 |\S|非\s| |
 |\t\r\n\v\f|tab回车 换行 垂直制表符 换页符| |
 
-范围符号：
+## 范围符号：
 
 | column | column |column|
 |--------|--------|---------|
@@ -704,12 +704,12 @@ new RegExg('boson').test('hello,boson')  //true
 |\b|零宽单词边界|\bno|
 |\B|非\b|   |
 
-特殊字符转义：`\`
+## 特殊字符转义：`\`
 ```language
 /\^abc/.test('^abc')  //true
 ```
 
-分组：
+## 分组：
 
 | column | column | column |
 |--------|--------|--------|
@@ -718,7 +718,7 @@ new RegExg('boson').test('hello,boson')  //true
 |(?:x)|仅分组|/(?:abc)(def)\1/.test('abcdefdef')|
 
 
-重复：
+## 重复：
 
 | column | column | column |
 |-------|-------|-------|
@@ -728,19 +728,26 @@ new RegExg('boson').test('hello,boson')  //true
 |x竖线y|x或者y|匹配x或y|
 |x{n} x{n,} x{n,m}|重复n次，重复>=n次，重复次数x满足：n<=m<=m|x{5}匹配xxxxxpp，不匹配xxp，x{1,3}匹配x,xx,xxx|
 
-三个flag：
+## 三个flag：
+
 1.global(全局)
+
 2.ignoreCase(忽略大小写)
+
 3.multiline(可跨行)
 ```language
 /abc/.gim.test('ABC')  //true
 RegExp('abc','mgi');   
 ```
 
-RegExp对象属性：
+## RegExp对象属性：
+
 1.global
+
 2.ignoreCase
+
 3.multiline
+
 4.source(原来的值)
 ```language
 /abc/g.global   //true
@@ -749,10 +756,14 @@ RegExp对象属性：
 /abc/g.source  //'abc'
 ```
 
-RegExp对象方法：
+## RegExp对象方法：
+
 1.compile 改变正则的属性
+
 2.exec 匹配值
+
 3.test
+
 4.toString
 
 ```language
@@ -764,18 +775,23 @@ reg.compile('def')
 reg.test('def')   //true
 ```
 
-string类型与正则相关的方法
+## string类型与正则相关的方法
+
 1.String.prototype.search检索位置
+
 `'abcabcdef'.search(/(abc)\1/);   //0`   
 2.String.prototype.replace替换
+
 `'abbbbcc'.replace(/b+?/,'1');  //a1bbbcc`
 `'abbbbcc'.replace(/b+/,'1');  //a1cc`
+
 3.String.prototype.match匹配
 ```language
 'aabbbc'.match(/b+/);   //['bbb']
 'aabbbccbbbb'.match(/b+/g)   //['bbb','bbbb']
 ```
 4.String.prototype.split分割
+
 `'aabbbccbd'.split(/b+/);   //['aa','cc','d']`
 
 
