@@ -3,19 +3,18 @@
 ## 数据类型
 ### string
 `var name = "bill"`
+
 ### number
 `var n = 2`
+
 ### boolean
 `var flag = true`
-### array
-`var arr = [2,4,1,5]`
-```language
-var cars = new Array();
-cars[0] = "Volvo";
-cars[1] = "Audi";
-cars[2] = "BMW";
-```
-`var cars = new Array("Volvo", "Audi", "BWM");`
+
+### null
+清空变量 `cars = null`
+
+### undefined
+`var x;`
 
 ### object
 `var obj = document.getElementById("wrap")`
@@ -28,10 +27,21 @@ var obj = {
 name = obj.lastname;
 name = obj["lastname"];
 ```
-### null
-清空变量 `cars = null`
-### undefined
-`var x;`
+
+### array(也是一种object对象)
+`var arr = [2,4,1,5]`
+```language
+var cars = new Array();
+cars[0] = "Volvo";
+cars[1] = "Audi";
+cars[2] = "BMW";
+```
+`var cars = new Array("Volvo", "Audi", "BWM");`
+
+**5种原始数据类型是：Number/string/boolean/null/undefined**
+**一种object对象类型：Function Array Date**
+
+
 
 ### 声明变量类型
 ```language
@@ -43,7 +53,50 @@ var p = new Object;
 ```
 
 测试数据类型
-`typeof xxx`
+1.typeof  适合基本类型以及function检测，遇到null失效
+```
+typeof xxx
+typeof NaN   //number
+typeof null  //object
+```
+2.instanceof：适合自定义对象，可以用来检测原生对象，在不同的iframe和window间检测时失效
+`obj instanceof Object(Function必须是函数对象)   //判断对象obj是否在原型链上`
+
+3.[[Class]]
+通过{}.toString拿到，社和内置对象和基元类型，遇到null和undefined失效
+```
+Object.prototype.toString.apply(xxx)
+Object.prototype.toString.apply(function(){})   //[object Function]
+```
+
+`constructor`
+`duck type`
+
+### 隐形数据转换
+```
+num - 0   //转换成数字number
+num + ""   //转换成字符串string
+```
+
+## 表达式
+1.原始表达式
+```
+3.14 "test"   //常量，直接量
+null, this, true  //关键字
+i,j,m,n   //变量
+10 * 3   //复合表达式
+```
+2.初始化表达式
+`[1,2]   //equal  new Array(1,2)`
+`{x: 1, y:2}  //equal  obj = new Object();  obj.x = 1;  obj.y = 2`
+3.函数表达式
+`var f = function(){};  (function(){})()`
+4.属性访问表达式
+`obj.x   //访问对象属性`
+5.调用表达式
+`f()   //调用`
+6.对象创建表达式
+`new F(1,2);  new Object;`
 
 ## 运算符
 ### 1.加法运算符
@@ -427,6 +480,181 @@ var y = (x++, 10);
 x // 1
 y // 10
 ```
+
+3.delete运算符
+```
+var obj = {x: 2};
+obj.x   //2
+delete obj.x;
+obj.x   //undefined
+```
+
+4.in运算符
+```
+window.x = 1;
+'x' in window  //true
+```
+
+5.new运算符
+
+6.this运算符
+
+7.instanceof运算符
+
+8.typeof运算符
+
+优先级
+![http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/8.png](http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/8.png)
+
+
+## 语句
+1.块语句，block
+```
+for(var i = 0; i < 7; i++){
+	var str = 'he';
+	console.log(str);
+}
+//**没有块级作用域:在这里i可以在外面访问到**
+console.log(i);  // 8
+```
+2.声明语句：var
+```
+var a = 2;
+var a = b = 3;   //equal var a = 3; b = 3;
+function foo(){
+	var a1 = b1 = 4;
+}
+foo();
+console.log(a1,b1);  // undefined,4  a1是局部变量，b1是全局变量
+```
+3.try catch
+```
+try {
+	throw 'text'
+} catch (ex) {
+	console.log(ex);  //text
+} finally {   //肯定会执行
+	console.log('pass')
+}
+//执行顺序：catch->try->finally
+try{
+	try{
+		throw new Error('oops');
+	}
+	finally {
+		console.log('finally');
+	}
+}
+catch (ex) {
+	console.error('outer')
+}
+//执行顺序：finally -> catch -> try
+![http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/9.png](http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/9.png)
+
+原图： <a href="http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/9.png">http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/9.png</a>
+
+4.function
+```
+//函数声明
+f()
+function f(){}
+//函数表达式
+var fe = function(){}
+```
+
+5.for in
+```
+var arr = [1,23,3];
+for (i in arr) {}
+```
+**
+存在的问题：
+1.顺序不确定
+2.enumerable为false时不会出现
+3.for in对象属性会受原型链的影响
+**
+
+6.switch
+```
+switch(a) {
+	case 1: 
+		console.log(1);
+		// break;
+	case 2:
+		console.log(2);
+	default:
+		console.log(3);
+}
+//有break的话会停止执行后面的，如果没有则会继续往下执行
+
+7.循环
+```
+while(x){}
+do{}while(x)
+for(var i = 0; i < 5;i ++){}
+```
+8.with:修改当前作用域（不建议使用）
+```
+with({x: 1}){}
+with(document.forms[0]){
+	console.log(name.value)
+}
+```
+
+8.严格模式
+```
+'use strict'
+```
+- 不允许使用with
+- 不允许未声明的变量被赋值
+arguments[0]变为参数的静态副本
+```
+function (a) {
+	arguments[0] = 10;
+	console.log(a);
+}(1);   // 10
+
+function (a){
+	'use strict';
+	arguments[0] = 10;
+	console.log(a);
+}(1);   //1
+
+function (a) {
+	'use strict'
+	arguments[0].x = 10;
+	console.log(a.x);
+}({x:1})  //10
+```
+- delete参数、函数名会报错；delete不可配置的属性会报错
+- 对象字面量重复属性名报错
+```
+function(){
+	'use strict'
+	var obj = {x:2,x:1};
+}   //报错
+```
+- 禁止八进制
+`console.log(0123);   //报错`
+
+- eval,arguments变为关键字，不能作为变量名，函数名
+```
+'use strict';
+function eval(){}
+//报错
+```
+- eval独立作用域
+```
+function(){
+	'use strict';
+	eval('var e = 2');
+	console.log(e);
+	//报错
+}
+```
+
+![http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/10.png](http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/10.png)
+原图：<a href="http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/10.png">http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/10.png</a>
 
 
 
