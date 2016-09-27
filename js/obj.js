@@ -81,5 +81,25 @@ window.onload = function(){
 	}
 	object2.forEach(writeEle);
 
+	//属性操作
+	var person = {};
+	Object.defineProperties(person,{
+		title: {
+			value: 'mili',
+			enumerable: true
+		},
+		salary: {
+			value: '10000',
+			writable: true
+		},
+		set newSal(s) {
+			if (s > this.salary) {
+				return s;
+			}
+		}
+	})
+
+	console.log(person,333333);
 
 }
+

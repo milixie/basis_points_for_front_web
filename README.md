@@ -8,6 +8,8 @@
 
 - 语句
 
+- 正则
+
 ## 数据类型
 ### string
 `var name = "bill"`
@@ -671,40 +673,109 @@ function(){
 原图：<a href="http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/10.png">http://7xj5et.com1.z0.glb.clouddn.com/github/img/prototype/10.png</a>
 
 
+#正则
+
+```language
+/\d\d\d/.test('123');   //true
+/\d\d\d/.test('ade');  //false
+new RegExg('boson').test('hello,boson')  //true
+```
+正则基础：
+
+| column | column | column  |
+|--------|--------|---------|
+| . |匹配任意字符（除换行符以外：\n,\r,\u2028 or \u2029） |/.../.test('1#@')|
+|\d|数字0-9|/\d\d\d/.test('123')|
+|\D|非\d,即不是数字0-9的字符|/\D\D\D/.test('edw')|
+|\w|匹配数字0-9，或字母a-z,或A-Z，或下划线|/\w\w\w\w/.test('aZ2_')|
+|\W|非\w|/\W\W\W/.test('#!$')|
+|\s|空格符、TAB、换页符、换行符|/\sab/.test(' ab')|
+|\S|非\s| |
+|\t\r\n\v\f|tab回车 换行 垂直制表符 换页符| |
+
+范围符号：
+
+| column | column |column|
+|--------|--------|---------|
+|[...]|字符范围| [a-z] [A-z] [0-9] [A-Z0-9a-z]|
+|[^...]|字符范围以外| [^a-z]   [^abc]|
+|^|行首|^Hi|
+|$|行尾|test$|
+|\b|零宽单词边界|\bno|
+|\B|非\b|   |
+
+特殊字符转义：`\`
+```language
+/\^abc/.test('^abc')  //true
+```
+
+分组：
+
+| column | column | column |
+|--------|--------|--------|
+|(x)|分组，并记录匹配到的字符串|/(abc)/.test('abc')|
+|\n|表示使用分组符(x)匹配到的字符串|/(abc)\1/.test('abcabc')|
+|(?:x)|仅分组|/(?:abc)(def)\1/.test('abcdefdef')|
 
 
+重复：
 
+| column | column | column |
+|-------|-------|-------|
+|x*   x+|重复次数>=0   重复次数>0 贪婪算法|正则表达式：abc*将匹配ab/abc/abccccc,abc+将匹配abc/abcccc,但是不匹配ab|
+|x*? x+?|重复次数>=0   重复次数>0 非贪婪算法|正则表达式：abc*?将在字符串abcccc中匹配ab,abc+将匹配abc|
+|x?|出现0/1次| |
+|x竖线y|x或者y|匹配x或y|
+|x{n} x{n,} x{n,m}|重复n次，重复>=n次，重复次数x满足：n<=m<=m|x{5}匹配xxxxxpp，不匹配xxp，x{1,3}匹配x,xx,xxx|
 
+三个flag：
+1.global(全局)
+2.ignoreCase(忽略大小写)
+3.multiline(可跨行)
+```language
+/abc/.gim.test('ABC')  //true
+RegExp('abc','mgi');   
+```
 
+RegExp对象属性：
+1.global
+2.ignoreCase
+3.multiline
+4.source(原来的值)
+```language
+/abc/g.global   //true
+/abc/g.ignoreCase   //false
+/abc/g.multiline   //false
+/abc/g.source  //'abc'
+```
 
+RegExp对象方法：
+1.compile 改变正则的属性
+2.exec 匹配值
+3.test
+4.toString
 
+```language
+/abc/.exec('abcdef')   //'abc'
+/abc/.test('abcd')   //true
+/abc/.toString()   //'/abc/ '
+var reg = /abc/;
+reg.compile('def')
+reg.test('def')   //true
+```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+string类型与正则相关的方法
+1.String.prototype.search检索位置
+`'abcabcdef'.search(/(abc)\1/);   //0`   
+2.String.prototype.replace替换
+`'abbbbcc'.replace(/b+?/,'1');  //a1bbbcc`
+`'abbbbcc'.replace(/b+/,'1');  //a1cc`
+3.String.prototype.match匹配
+```language
+'aabbbc'.match(/b+/);   //['bbb']
+'aabbbccbbbb'.match(/b+/g)   //['bbb','bbbb']
+```
+4.String.prototype.split分割
+`'aabbbccbd'.split(/b+/);   //['aa','cc','d']`
 
 
