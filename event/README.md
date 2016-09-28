@@ -10,6 +10,8 @@
 
 - 事件委托
 
+- JSON/JSONP
+
 一、事件流
 
 事件流描述的是从页面中接受事件的顺序。
@@ -262,4 +264,22 @@ oDelegate.bind('click','li',function(e){
 oUnBtn.on('click', function(){
 	oDelegate.unbind();
 })
+```
+
+#JSON/JSONP
+
+```
+<div id="divCustomers"></div>
+	<script>
+		$.getJSON("http://www.runoob.com/try/ajax/jsonp.php?jsoncallback=?", function(data) {
+			
+			var html = '<ul>';
+			for(var i = 0; i < data.length; i++){
+				html += '<li>' + data[i] + '</li>';
+			}
+			html += '</ul>';
+			
+			$('#divCustomers').html(html); 
+		});
+	</script>
 ```
