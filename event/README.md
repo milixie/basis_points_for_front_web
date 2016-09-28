@@ -8,6 +8,8 @@
 
 - 不同的事件类型
 
+- 事件委托
+
 一、事件流
 
 事件流描述的是从页面中接受事件的顺序。
@@ -174,4 +176,90 @@ useCapture -> true/false:true->事件使用捕获传递,false->使用默认的�
 
 	eventUtil.addHandler(hand, 'mousemove', rand);
 	eventUtil.removeHandler(hand, 'mousemout', rand);
+```
+
+# 事件委托
+定义：允许我们不必为某些特定的节点添加事件监听器，而是将事件监听器添加到（这些节点的）某个parent节点上。事件监听器分析冒泡事件，去找到匹配的子节点元素，然后做出相应的事件响应
+
+### 原生JavaScript：
+```
+window.onload = function(){
+	var aHead = document.getElementById('home-head'),
+			aLi = aHead.children;
+	//DOM0级方式
+	aHead.onclick = function(event){
+		event = event || window.event;
+		if (event.target.nodeName.toLowerCase() == 'li'){
+			console.log(event.target.textContent);
+		}
+	}
+	//DOM2级方式
+	var aHead2 = document.getElementById('home-head-2'),
+			aLi2 = aHead2.children;
+	//DOM0级方式
+	if (aHead2.addEventListener) {
+		aHead2.addEventListener('click', function(event){
+			for(var i = 0;i < aLi2.length; i++){
+				if(event.target == aLi2[i]){
+					alert(i+'//////');
+				}
+			}
+		})
+	} else if (aHead2.attachEvent) {
+		aHead2.attachEvent('onclick', function(event){
+			event = window.event;
+			for(var i = 0;i < aLi2.length; i++){
+				if (event.srcElement == aLi2[i]){
+					alert(i + '???????????');
+				}
+			}
+		})
+	} else {
+		aHead2.onclick = function(event){
+			event = event || window.event;
+			for(var i = 0;i < aLi2.length; i++){
+				if (event.srcElement == aLi2[i]){
+					alert(i + '????????');
+				}
+			}
+		}
+	}
+
+}
+```
+
+### jQuery支持事件委托
+
+- delegate() / undelegate()
+```
+oDelegate.delegate('li', 'click', function(e){
+	e = e || window.event;
+	console.log(e.target);
+});
+oUnBtn.on('click',function(){
+	oDelegate.undelegate('li', 'click');
+})
+```
+- on() / off()
+```
+oDelegate.on('click', 'li', function(e){
+	e = e || window.event;
+	console.log(e.target);
+});
+oUnBtn.on('click', function(){
+	oDelegate.off('click', 'li');
+})
+```
+- bind() / unbind()(勉强可以实现，但是不适合)
+
+```
+oDelegate.bind('click','li',function(e){
+	e = e || window.e;
+	if (e.target.nodeName.toLowerCase() == 'li'){
+		console.log(e.target);
+	}
+})
+oUnBtn.on('click', function(){
+	oDelegate.unbind();
+})
 ```

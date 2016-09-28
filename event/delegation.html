@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>事件</title>
+	<link rel="stylesheet" type="text/css" href="css/event.css">
+	<script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="js/delegation.js"></script>
+	<!-- [if gt ie 9] >
+	<script type="text/javascript">
+		String uri = request.getRequestURI();
+    if(uri.matches(".+(css|js|png|ico|swf)$")) {
+        String assetsRoot = getVelocityProperty(AppLoader.APP_LOADER_ASSETS_PATH, "/");
+        byte[] bytes = FileUtils.readFileToByteArray(new File(assetsRoot + uri));
+        response.setContentType(MimeHandler.getContentType(FilenameUtils.getExtension(uri)));
+        ServletOutputStream outputStream = response.getOutputStream();
+        IOUtils.write(bytes, outputStream);
+        return;
+    }
+	</script>
+	<! [endif] -->
+</head>
+<body>
+	<h2>DOM事件委托</h2>
+	<ul id="home-head">
+		<li>home</li>
+		<li>home page</li>
+		<li>home index</li>
+		<li>home css</li>
+		<li>home js</li>
+		<li>home style</li>
+	</ul>
+	<ul id="home-head-2">
+		<li>home</li>
+		<li>home page</li>
+		<li>home index</li>
+		<li>home css</li>
+		<li>home js</li>
+		<li>home style</li>
+	</ul>
+	<!-- jquery -->
+	<button class="un-delegate">移除事件委托</button>
+	<ul class="delegate-jquery">
+		<li>delegate 1</li>
+		<li>delegate 2</li>
+		<li>delegate 3</li>
+		<li>delegate 4</li>
+		<li>delegate 5</li>
+	</ul>
+</body>
+</html>
