@@ -1,0 +1,39 @@
+button {
+	padding: 10px;
+	margin: 10px;
+	background: lightblue;
+	outline: none;
+	border: 0;
+	border: 5px;
+	cursor: pointer;
+}
+
+div {
+	padding:20px;
+	margin: 20px;
+	background: lightgrey;
+}
+
+#dom-wrap{
+	padding: 20px;
+	background: lightblue;
+}
+
+.event-test{
+	margin-top: 20px;
+	background: red;
+	padding: 20px;
+}
+.event-test p{
+	background: green;
+	padding: 20px;
+}
+.event-test span{
+	display: block;
+	background: gray;
+	padding: 20px;
+}
+
+#attach-event {
+	background: lightblue;
+}

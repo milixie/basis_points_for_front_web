@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>事件</title>
+	<link rel="stylesheet" type="text/css" href="css/event.css">
+	<script type="text/javascript" src="js/dom.js"></script>
+</head>
+<body>
+	<div id="event-dom">
+		<h2>DOM事件</h2>
+		<button type="button">点击显示时间</button>
+		<button type="button">点击移除事件</button>
+		<div id="dom-wrap">现在的时间是</div>
+	</div>
+	<div id="event-test" class="event-test">
+		test capture of div label
+		<p>
+			test capture of p label
+			<span>test capture of span label</span>
+		</p>
+	</div>
+	<div id="event-test-true" class="event-test">
+		test capture of div label
+		<p>
+			test capture of p label
+			<span>test capture of span label</span>
+		</p>
+	</div>
+
+	<div id="attach-event">
+		<p>跨浏览器问题</p>
+	</div>
+
+	<div id="handler-test">
+		<button>add</button>
+		<button>reomve</button>
+		<p>完整的解决浏览器兼容性问题</p>
+	</div>
+</body>
+</html>

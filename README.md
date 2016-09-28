@@ -736,7 +736,7 @@ new RegExg('boson').test('hello,boson')  //true
 
 3.multiline(可跨行)
 ```language
-/abc/.gim.test('ABC')  //true
+/abc/gim.test('ABC')  //true
 RegExp('abc','mgi');   
 ```
 
