@@ -145,7 +145,7 @@ function -> 函数
 
 useCapture -> true/false:true->事件使用捕获传递,false->使用默认的冒泡传递
 ```
-
+使用普通的方式，没有封装
 ```
 	var dom = document.getElementById('dom-wrap'),
 			eventDom = document.getElementById('event-dom'),
@@ -162,4 +162,16 @@ useCapture -> true/false:true->事件使用捕获传递,false->使用默认的�
 	btns[1].addEventListener('click', function(){
 		dom.removeEventListener('mousemove', displayDate);
 	});
+```
+使用封装好的跨浏览器的函数
+```
+	var hand = document.getElementById('handler-test'),
+			handBtns = hand.getElementsByTagName('button');
+
+	function rand(){
+		hand.innerHTML = '<button>add</button><button>reomve</button><p>完整的解决浏览器兼容性问题</p>' + Math.random();
+	}
+
+	eventUtil.addHandler(hand, 'mousemove', rand);
+	eventUtil.removeHandler(hand, 'mousemout', rand);
 ```
