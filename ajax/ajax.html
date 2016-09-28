@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>ajax</title>
+	<script type="text/javascript">
+		window.onload = function(){
+			function loadAjax(){
+				var load;
+				if (window.XMLHttpRequest) {
+					load = new XMLHttpRequest();
+				} else {
+					load = new ActiveXObject('Microsoft.XMLHTTP');
+				}
+				load.onreadystatechange = function(){
+					if (load.readyState == 4 && load.status == 200){
+						console.log(load.responseText);
+					}
+				}
+				load.open('get', 'http://7u2grt.com1.z0.glb.clouddn.com/ajax.txt', true);
+				load.send();
+			}
+			loadAjax();
+
+			function loadAjaxPost(){
+				var load;
+				if (window.XMLHttpRequest) {
+					load = new XMLHttpRequest();
+				} else {
+					load = new ActiveXObject('Microsoft.XMLHTTP');
+				}
+				load.onreadystatechange = function(){
+					if (load.readyState == 4 && load.status == 200){
+						document.getElementById('post-ajax').innerHTML = load.responseText;
+						alert(load.responseText)
+					}
+				}
+				load.open('post', 'http://7u2grt.com1.z0.glb.clouddn.com/post.php', true);
+				load.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+				load.send();
+			}
+			loadAjaxPost();
+		}
+	</script>
+</head>
+<body>
+<div id="post-ajax"></div>
+</body>
+</html>
