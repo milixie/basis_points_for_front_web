@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>BOM</title>
+	<style type="text/css">
+		div {
+			padding: 10px;
+			margin: 10px;
+			background: lightblue;
+			line-height: 2em;
+		}
+		button{
+			padding: 10px;
+			margin:10px;
+			background: lightgrey;
+			cursor: pointer;
+			outline: none;
+			border-radius: 5px;
+			background: lightyellow;
+		}
+		.set-timer .input-time{
+			float: left;
+			display: inline-block;
+			margin-top: 20px;
+		}
+		.timer {
+			margin-left: 120px;
+		}
+		.timer button {
+			margin-left: 0;
+		}
+		.show-timer {
+			font-size: 30px;
+			margin-left: 40px;
+			border: 2px solid #ddd;
+			box-shadow: 1px 1px 2px #eee;
+			border-radius: 5px;
+			width: 200px;
+			padding: 10px;
+			text-align: center;
+		}
+		.show-timer span {
+			padding: 15px;
+		}
+		.control-btn{
+			margin-left: 30px;
+			padding: 10px 20px;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="include-time">
+		<h2>秒表：</h2>
+		<button>点击开始计时</button>
+		<button>停止计时</button>
+		<p class="show-timer"><span>00</span>:<span>00</span>:<span>00</span></p>
+	</div>
+
+	<script type="text/javascript">
+		//秒表
+		var oIncludeTime = document.getElementById('include-time'),
+				oStart = oIncludeTime.getElementsByTagName('button')[0],
+				oStop = oIncludeTime.getElementsByTagName('button')[1];
+				oShow = oIncludeTime.getElementsByTagName('p')[0],
+				oShowMinutess = oShow.getElementsByTagName('span')[0],
+				oShowSeconds = oShow.getElementsByTagName('span')[1],
+				oShowSmalls = oShow.getElementsByTagName('span')[2],
+				flag = false,
+				sm = 0, s = 0, m = 0;
+		var inter;
+
+		function start(){
+			flag = true;
+			inter = setInterval(function(){
+				if (sm >= 99){
+					sm = 0;
+					if (s >= 59) {
+						s = 0;
+						m ++;
+						if (m < 10) {
+							m = '0' + m;
+						}
+						oShowMinutess.innerHTML = m;
+					}
+					s ++;
+					if ( s < 10) {
+						s = '0' + s;
+					}
+					oShowSeconds.innerHTML = s;
+				}
+				sm ++;
+				if ( sm < 10 ){
+					sm = '0' + sm;
+				}
+				oShowSmalls.innerHTML = sm;
+			}, 10);
+		}
+
+		oStart.onclick = function(){
+			if (!flag) {
+				start();
+			}
+		}
+		oStop.onclick = function(){
+			if (flag){
+				clearInterval(inter);
+			}
+			flag = !flag;
+		}
+	</script>
+
+	<div id="timer-wrap">
+		<h2>计时器</h2>
+		<div class="set-timer">
+			<label class="input-time">请设置计时时间：</label>
+			<div class="timer">
+				<label>时钟：</label>
+				<input type="number" min="0" max="23" name="" value="00" id="set-hours">
+			</div>
+			<div class="timer">
+				<label>分钟：</label>
+				<input type="number" min="0" max="59" name="" value="00" id="set-minutes">
+			</div>
+			<div class="timer">
+				<label>秒钟：</label>
+				<input type="number" min="0" max="59" name="" value="00" id="set-seconds">
+			</div>
+			<div class="timer">
+				<button id="set-time-btn">点击设置计时时间</button>
+			</div>
+		</div>
+		<p class="show-timer"><span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span></p>
+		<button id="start-timer" class="control-btn">start</button>
+		<button id="stop-timer" class="control-btn">stop</button>
+		<button id="reset-timer" class="control-btn">reset</button>
+	</div>
+	<script type="text/javascript">
+		//计时器
+		var oTimerWrap = document.getElementById('timer-wrap'),
+				oGetHours = document.getElementById('set-hours'),
+				oGetMinutes = document.getElementById('set-minutes'),
+				oGetSeconds = document.getElementById('set-seconds'),
+				oSetBtn = document.getElementById('set-time-btn'),
+				oTimerStart = document.getElementById('start-timer'),
+				oTimerStop = document.getElementById('stop-timer'),
+				oTimerReset = document.getElementById('reset-timer'),
+				oTimerHours = document.getElementById('hours'),
+				oTimerMinutes = document.getElementById('minutes'),
+				oTimerSeconds = document.getElementById('seconds'),
+				timerS = oTimerSeconds.innerHTML,
+				timerM = oTimerMinutes.innerHTML,
+				timerH = oTimerHours.innerHTML,
+				getS,
+				getM,
+				getH,
+				timerFlag = false,
+				myTimer;
+
+		function timerStart(){
+			timerFlag = true;
+			timerS = Number(oTimerSeconds.innerHTML);
+			timerM = Number(oTimerMinutes.innerHTML);
+			timerH = Number(oTimerHours.innerHTML);
+			if (timerS == 0 && timerM == 0 && timerH == 0){
+				clearInterval(myTimer);
+				alert('计时器时间为零，请重新设置计时器时间！');
+				return;
+			}
+
+			myTimer = setInterval(function(){
+				if (timerS > 0) {
+					timerS--;
+				} else if(timerS == 0) {
+					if (timerM == 0) {
+						if (timerH == 0) {
+							clearInterval(myTimer);
+							alert('计时结束！')
+						} else if (timerH > 0) {
+							timerH --;
+							timerM = 59;
+							timerS = 60;
+							timerS--;
+						} else {
+							clearInterval(myTimer);
+							alert('计时器的时针格式不正确！');
+						}
+					} else if (timerM > 0) {
+						timerS = 59;
+						timerM--;
+					} else {
+						clearInterval(myTimer);
+						alert('计时器的分针格式不正确！');
+					}
+				} else {
+					clearInterval(myTimer);
+					alert('计时器的秒针格式不正确！');
+				}
+
+				if (timerS < 10) {
+					timerS = '0' + Number(timerS);
+				}
+				if (timerM < 10) {
+					timerM = '0' + Number(timerM);
+				}
+				if (timerH < 10) {
+					timerH = '0' + Number(timerH);
+				}
+
+				oTimerSeconds.innerHTML = timerS;
+				oTimerMinutes.innerHTML = timerM;
+				oTimerHours.innerHTML = timerH;
+			}, 1000);
+		}
+
+		oSetBtn.onclick = function(){
+			timerFlag = false;
+			getH = parseInt(oGetHours.value);
+			getM = parseInt(oGetMinutes.value);
+			getS = parseInt(oGetSeconds.value);
+			if (getH < 0 || getH >23) {
+				alert('请输入正确的时钟时间，0~23之间的整数！');
+				return;
+			}
+			if (getM < 0 || getM > 59) {
+				alert('请输入正确的分钟时间，0~59之间的整数！');
+				return;
+			}
+			if (getS < 0 || getS > 59) {
+				alert('请输入正确的秒钟时间，0~59之间的整数！');
+				return;
+			}
+			if (getH < 10) {
+				getH = '0' + getH;
+			}
+			if (getM < 10) {
+				getM = '0' + getM;
+			}
+			if (getS < 10) {
+				getS = '0' + getS;
+			}
+			oTimerHours.innerHTML = getH;
+			oTimerMinutes.innerHTML = getM;
+			oTimerSeconds.innerHTML = getS;
+		}
+
+		oTimerStart.onclick = function(){
+			if (timerFlag){
+				return;
+			}
+			timerStart();
+		}
+		oTimerStop.onclick = function(){
+			clearInterval(myTimer);
+			if (timerFlag) {
+				timerFlag = !timerFlag;
+			}
+		}
+		oTimerReset.onclick = function(){
+			clearInterval(myTimer);
+			if (timerFlag) {
+				timerFlag = !timerFlag;
+			}
+			oGetHours.value = '00';
+			oGetMinutes.value = '00';
+			oGetSeconds.value = '00';
+			oTimerHours.innerHTML = '00';
+			oTimerMinutes.innerHTML = '00';
+			oTimerSeconds.innerHTML = '00';
+		}
+	</script>
+</body>
+</html>

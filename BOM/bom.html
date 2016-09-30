@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>BOM</title>
+	
+	<style type="text/css">
+		div {
+			padding: 10px;
+			margin: 10px;
+			background: lightblue;
+			line-height: 2em;
+		}
+		button{
+			padding: 10px;
+			margin:10px;
+			background: lightgrey;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<div id="window-size"></div>
+	<button id="open-window">点击打开某个网站</button>
+	<button id="close-window">点击关闭该网站</button>
+	<button id="open-window-2">点击打开某个网站</button>
+	<button id="move-to">点击moveTo</button>
+	<div id="screen-size"></div>
+	<div id="location"></div>
+	<div id="history">
+		<button>返回上一页</button>
+		<button>返回下一页</button>
+	</div>
+	<div id="navigator">浏览器相关信息：</div>
+	<button id="confirm">确认框</button>
+	<div id="prompt">
+		<button>点击输入你的姓名并将结果返回</button>
+		<p>您的姓名是：</p>
+	</div>
+
+	<div id="set-interval">
+		每隔2s出现一行字
+		<button>点击将清除定时器</button>
+		<div id="show-interval"></div>
+	</div>
+
+	<div id="set-timeout">
+		<button onclick="setTime()">点击三秒后才出现当前时间</button>
+		<button onclick="clearTime()">点击清除延时器</button>
+		<p>点击三秒后才出现当前时间</p>
+	</div>
+
+	<div id="include-time">
+		<h2>秒表：</h2>
+		<button>点击开始计时</button>
+		<button>停止计时</button>
+		<p><span>00</span>:<span>00</span>:<span>00</span></p>
+	</div>
+
+	<div id="timer-wrap">
+		<h2>计时器</h2>
+		<button>start</button>
+		<button>stop</button>
+		<p><span>01</span>:<span>05</span>:<span>50</span></p>
+	</div>
+	<script type="text/javascript" src="js/bom.js"></script>
+	<script type="text/javascript">
+		//timeout
+		var oSetTimeout = document.getElementById('set-timeout'),
+				oSetTimeoutBtn = oSetTimeout.getElementsByTagName('button')[0],
+				oShowTimeout = oSetTimeout.getElementsByTagName('p')[0];
+
+		var oTimeout;
+		function setTime(){
+			oTimeout = setTimeout(function(){
+				var date = new Date();
+				oSetTimeout.innerHTML +=  date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '<br>';
+			},3000);
+		}
+		function clearTime(){
+			clearTimeout(oTimeout);
+		}
+		//秒表
+		var oIncludeTime = document.getElementById('include-time'),
+				oStart = oIncludeTime.getElementsByTagName('button')[0],
+				oStop = oIncludeTime.getElementsByTagName('button')[1];
+				oShow = oIncludeTime.getElementsByTagName('p')[0],
+				oShowMinutess = oShow.getElementsByTagName('span')[0],
+				oShowSeconds = oShow.getElementsByTagName('span')[1],
+				oShowSmalls = oShow.getElementsByTagName('span')[2],
+				flag = false,
+				sm = 0, s = 0, m = 0;
+		var inter;
+
+		function start(){
+			flag = true;
+			inter = setInterval(function(){
+				if (sm >= 99){
+					sm = 0;
+					if (s >= 59) {
+						s = 0;
+						m ++;
+						if (m < 10) {
+							m = '0' + m;
+						}
+						oShowMinutess.innerHTML = m;
+					}
+					s ++;
+					if ( s < 10) {
+						s = '0' + s;
+					}
+					oShowSeconds.innerHTML = s;
+				}
+				sm ++;
+				if ( sm < 10 ){
+					sm = '0' + sm;
+				}
+				oShowSmalls.innerHTML = sm;
+			}, 10);
+		}
+
+		oStart.onclick = function(){
+			if (!flag) {
+				start();
+			}
+		}
+		oStop.onclick = function(){
+			if (flag){
+				clearInterval(inter);
+			}
+			flag = !flag;
+		}
+
+		//计时器
+		var oTimerWrap = document.getElementById('timer-wrap'),
+				oTimerStart = oTimerWrap.getElementsByTagName('button')[0],
+				oTimerStop = oTimerWrap.getElementsByTagName('button')[1],
+				oTimerShow = oTimerWrap.getElementsByTagName('p')[0],
+				oTimerHours = oTimerShow.getElementsByTagName('span')[0],
+				oTimerMinutes = oTimerShow.getElementsByTagName('span')[1],
+				oTimerSeconds = oTimerShow.getElementsByTagName('span')[2],
+				timerS = oTimerSeconds.innerHTML,
+				timerM = oTimerMinutes.innerHTML,
+				timerH = oTimerHours.innerHTML,
+				timerFlag = false,
+				myTimer;
+
+		function timerStart(){
+			timerFlag = true;
+			timerS = Number(oTimerSeconds.innerHTML);
+			timerM = Number(oTimerMinutes.innerHTML);
+			timerH = Number(oTimerHours.innerHTML);
+			if (timerS == 0 && timerM == 0 && timerH == 0){
+				clearInterval(myTimer);
+				alert('计时器时间为零，请重新设置计时器时间！');
+				return;
+			}
+
+			myTimer = setInterval(function(){
+				if (timerS > 0) {
+					timerS--;
+				} else if(timerS == 0) {
+					if (timerM == 0) {
+						if (timerH == 0) {
+							clearInterval(myTimer);
+							alert('计时结束！')
+						} else if (timerH > 0) {
+							timerH --;
+							timerM = 59;
+							timerS = 60;
+							timerS--;
+						} else {
+							clearInterval(myTimer);
+							alert('计时器的时针格式不正确！');
+						}
+					} else if (timerM > 0) {
+						timerS = 59;
+						timerM--;
+					} else {
+						clearInterval(myTimer);
+						alert('计时器的分针格式不正确！');
+					}
+				} else {
+					clearInterval(myTimer);
+					alert('计时器的秒针格式不正确！');
+				}
+
+				if (timerS < 10) {
+					timerS = '0' + Number(timerS);
+				}
+				if (timerM < 10) {
+					timerM = '0' + Number(timerM);
+				}
+				if (timerH < 10) {
+					timerH = '0' + Number(timerH);
+				}
+
+				oTimerSeconds.innerHTML = timerS;
+				oTimerMinutes.innerHTML = timerM;
+				oTimerHours.innerHTML = timerH;
+			}, 1000);
+		}
+
+		oTimerStart.onclick = function(){
+			if (timerFlag){
+				return;
+			}
+			timerStart();
+		}
+		oTimerStop.onclick = function(){
+			clearInterval(myTimer);
+			timerFlag = !timerFlag;
+		}
+	</script>
+</body>
+</html>
