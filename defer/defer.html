@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>defer/async</title>
+</head>
+<body>
+	<script type="text/javascript" defer>
+		alert('defer');
+	</script>
+	<script type="text/javascript">
+		alert('script');
+	</script>
+	<script type="text/javascript">
+		window.onload = function(){
+			alert('onload');
+		}
+	</script>
+
+</body>
+</html>
