@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>route</title>
+</head>
+<body>
+<div class="container">
+	<nav class="navbar">
+		<ul>
+			<li><a href="#/">Home</a></li>
+			<li><a href="#/info">Info</a></li>
+			<li><a href="#/signIn">Sign in</a></li>
+			<li><a href="#/signUp">Sign up</a></li>
+			<li><a href="#/address">Address</a></li>
+			<li><a href="#/contact">Contact us</a></li>
+		</ul>
+	</nav>
+	<div class="content"></div>
+</div>
+<script type="text/javascript">
+	(function(){
+		function Router(){}
+		Router.prototype.route = function(path, callback){
+			var url = location.hash.slice(1) || '/';
+			//刷新时的处理
+			window.addEventListener('load', function(){
+				if (url == path) {
+					callback&&callback();
+				}
+			}, false);
+
+			//hash变化时的处理
+			window.addEventListener('hashchange', function(){
+				url = location.hash.slice(1) || '/';
+				if (url == path) {
+					callback&&callback();
+				}
+			}, false);
+		}
+
+		window.Router = new Router();
+	})();
+
+	var content = document.querySelectorAll('.content');
+	function loadContent(txt, bgColor) {
+		content[0].innerHTML = txt;
+		document.getElementsByTagName('div')[0].style.backgroundColor = bgColor;
+	}
+
+	Router.route('/', function(){
+		loadContent('This is home page!', 'red');
+	});
+
+	Router.route('/info', function(){
+		loadContent('This is information page!', 'blue');
+	});
+
+	Router.route('/signIn', function(){
+		loadContent('This is sign in page!', 'green');
+	});
+
+	Router.route('/signUp', function(){
+		loadContent('This is sign up page!', 'yellow');
+	});
+
+	Router.route('/address', function(){
+		loadContent('This is address page', 'lightblue');
+	});
+
+	Router.route('/contact', function(){
+		loadContent('This is contact us page', '#f40')
+	})
+
+</script>
+</body>
+</html>
