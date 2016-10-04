@@ -1,4 +1,10 @@
-# 异步加载 性能优化
+- 异步加载
+
+- 性能优化
+
+- seo前端优化
+
+# 异步加载
 
 能让脚本延迟和异步执行的两个属性：defer and async
 
@@ -110,6 +116,52 @@ doc.close();
 ## 使用CDN加速，即内容分发网络
 使用缓存服务器，请求的时候直接请求离的比较近的缓存服务器，这样可以减少网络流量，负载，响应时间等等
 
+# SEO前端优化
 
+seo：搜索引擎优化，利用搜索引擎的搜索规则来提高网站在有关搜索引擎内的排名
+
+1.设置title/meta标签
+```
+<title>mili</title>
+<meta name="keywords" content="mili，前端，开发工程师，大学生，公司员工">
+<meta name="description" content="https://github.com/milixie是mili的github账号，mili是前端开发工程师">
+```
+
+2.给img添加替代文本alt以及a标签使用`rel="nofollow"`使用title属性来告诉搜索引擎图片的内容
+```
+<a href="xxx" rel="nofollow" title="图片是mili开发者的主页博客logo图"><img src="logo.png" alt="mili主页logo"></a>
+```
+
+3.页面中有表格的时候，使用定义表格描述caption
+```
+<table>
+	<caption>mili home page</caption>
+	<tr>...</tr>
+</table>
+```
+
+4.标题元素使用h1-h4来定义
+
+5.去设置一个云标签（一个存放关键词的页面，类似于导航菜单）
+
+6.给自己的网站做一个sitemap或者rss订阅
+
+7.控制页面大小字100k以内
+
+8.使用`b`/`i`/`strong`/`em`，`ul ol li`标签增强语义，可以多使用h5中的语义化标签
+
+9.重要内容不要使用js、iframe、flash输出到页面中
+
+10.使用robot.txt文件
+
+11.控制外链个数，一个页面中的链接数不可以太少，并且最好不要超过100个
+
+12.布局SEO：使得前端页面结构清晰，扁平化结构，代码不冗余；并且整个网站的目录结构也要扁平化，目录分类
+
+13.导航SEO优化，（导航出现在头部，底部），面包屑导航
+
+14.重要的HTML内容放在最前面，小蜘蛛会先抓取前面的代码
+
+15.最好不要使用`display:none`，因为小蜘蛛会过滤掉它里面的内容
 
 
