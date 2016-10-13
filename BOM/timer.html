@@ -2,28 +2,32 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>BOM</title>
+	<title>秒表&&计时器</title>
 	<style type="text/css">
-	
 		div {
 			padding: 10px;
-			margin: 10px;
 			background: lightblue;
 			line-height: 2em;
 		}
 		button{
 			padding: 10px;
-			margin:10px;
+			margin: 10px 10px 30px 10px;
 			background: lightgrey;
 			cursor: pointer;
 			outline: none;
 			border-radius: 5px;
 			background: lightyellow;
 		}
+		.timer-wrap{
+			width: 400px;
+			margin: 10px auto;
+			padding: 20px 20px 40px 20px; 
+			text-align: center;
+		}
 		.set-timer .input-time{
 			float: left;
 			display: inline-block;
-			margin-top: 20px;
+			margin-top: 10px;
 		}
 		.timer {
 			margin-left: 120px;
@@ -33,7 +37,7 @@
 		}
 		.show-timer {
 			font-size: 30px;
-			margin-left: 40px;
+			margin: auto;
 			border: 2px solid #ddd;
 			box-shadow: 1px 1px 2px #eee;
 			border-radius: 5px;
@@ -46,14 +50,15 @@
 		}
 		.control-btn{
 			margin-left: 30px;
+			margin-top: 30px;
 			padding: 10px 20px;
 		}
 	</style>
 </head>
 <body>
 
-	<div id="include-time">
-		<h2>秒表：</h2>
+	<div id="include-time" class="timer-wrap">
+		<h2>秒表</h2>
 		<button>点击开始计时</button>
 		<button>停止计时</button>
 		<p class="show-timer"><span>00</span>:<span>00</span>:<span>00</span></p>
@@ -112,7 +117,7 @@
 		}
 	</script>
 
-	<div id="timer-wrap">
+	<div id="timer-wrap" class="timer-wrap">
 		<h2>计时器</h2>
 		<div class="set-timer">
 			<label class="input-time">请设置计时时间：</label>
